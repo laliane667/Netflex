@@ -7,7 +7,6 @@ import dependencies.View.ProjectScene.SignupScene;
 import dependencies.View.ProjectWindow;
 import dependencies.Model.User;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,7 +34,7 @@ public class SignupController extends SceneController {
     }
     public SceneIdentifier getSceneIdentifier(){return sceneIdentifier;}
 
-    public void handleSubmitButton(RoundedButton button, String uid, String name, String email, String password, String repeatPassword, Date dateOfBirth) {
+    public void handleSubmitButton(RoundedButton button, String firstName, String lastName, String uid, String email, String password, String repeatPassword, Date dateOfBirth) {
         if (button.getName() == "submit") {
             java.util.Calendar cal = Calendar.getInstance();
             java.util.Date utilDate = dateOfBirth; // your util date
@@ -45,16 +44,19 @@ public class SignupController extends SceneController {
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime());
-            try {
-                User user = new User(uid,name,email,password,sqlDate);
-                super.getApplicationController().getConnectionController().getUserDAO().addUser(user);
-                System.out.println("User added");
-                signupScene.changeVisibility(false);
-                super.getApplicationController().changeScene(SceneIdentifier.MENU, "none");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            User user = new User(firstName, lastName, email, uid, password, sqlDate, false);
+            getApplicationController().setAppUser(user);
+            getApplicationController().getApplication().InitializeWatchLater();
+            getApplicationController().getApplication().InitializeViewingVideos();
+            getApplicationController().getApplication().InitializeViewedVideos();
+            System.out.println("User added");
+            signupScene.changeVisibility(false);
+            super.getApplicationController().changeScene(SceneIdentifier.MENU, "none");
         }
+    }
+
+    public void Close(){
+
     }
 }
 

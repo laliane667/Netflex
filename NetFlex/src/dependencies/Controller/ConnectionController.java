@@ -1,6 +1,7 @@
 package dependencies.Controller;
 
-import dependencies.Model.DAO.UserDAO;
+import dependencies.Model.Category;
+import dependencies.Model.DAO.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,27 +10,28 @@ import java.sql.Date;
 
 public class ConnectionController {
     Connection connection = null;
-    private UserDAO userDAO = null;
     private final String url = "jdbc:mysql://localhost:8889/NetFlex";
     private final String username = "root";
     private final String password = "root";
+    private UserDAO userDAO = null;
+    private VideoDAO videoDAO = null;
+    private CategoryDAO categoryDAO = null;
+    private CategorizationDAO categorizationDAO = null;
+    private WatchLaterDAO watchLaterDAO = null;
+    private VideoMarkingsDAO videoMarkingsDAO = null;
+    private VideoViewingsDAO videoViewingsDAO = null;
     public ConnectionController(){
-
-        // Nouvel utilisateur à insérer dans la base de données
-        //User user = new User("John Doe", "john.doe@example.com", "password123", new Date(2000, 1, 1));
-
         try {
             connection = DriverManager.getConnection(url, username, password);
             userDAO = new UserDAO(connection);
+            videoDAO = new VideoDAO(connection);
+            categoryDAO = new CategoryDAO(connection);
+            categorizationDAO = new CategorizationDAO(connection);
+            watchLaterDAO = new WatchLaterDAO(connection);
+            videoMarkingsDAO = new VideoMarkingsDAO(connection);
+            videoViewingsDAO = new VideoViewingsDAO(connection);
+
             System.out.println("Connection success");
-            // Création d'une instance de la classe DAO
-            //UserDaoInterface userDao = new UserDAO(connection);
-
-            // Insertion de l'utilisateur dans la base de données
-            //userDao.insertUser(user);
-
-            // Fermeture de la connexion
-            //connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,4 +50,10 @@ public class ConnectionController {
     public Connection getConnection(){return connection;}
 
     public UserDAO getUserDAO() {return userDAO;}
+    public VideoDAO getVideoDAO() {return videoDAO;}
+    public CategoryDAO getCategoryDAO(){return categoryDAO;}
+    public CategorizationDAO getCategorizationDAO(){return categorizationDAO;}
+    public WatchLaterDAO getWatchLaterDAO(){return watchLaterDAO;}
+    public VideoMarkingsDAO getVideoMarkingsDAO(){return videoMarkingsDAO;}
+    public VideoViewingsDAO getVideoViewingsDAO(){return videoViewingsDAO;}
 }

@@ -7,7 +7,7 @@ public class ProjectWindow extends JFrame {
     private int screenWidth;
     private int screenHeight;
     private Color backGroundColor;
-
+    private Color menuBarColor = new Color(20,25,30,255);
 
     public ProjectWindow(String title){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -35,5 +35,6 @@ public class ProjectWindow extends JFrame {
     public int getScreenWidth(){return screenWidth;}
     public int getScreenHeight(){return screenHeight;}
     public Color getBackgroundColor(){return backGroundColor;}
+    public Color getMenuBarColor(){return menuBarColor;}
 
 }

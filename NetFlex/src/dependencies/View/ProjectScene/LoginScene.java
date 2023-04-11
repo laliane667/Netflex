@@ -55,7 +55,7 @@ public class LoginScene {
         errorLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 40, 0));
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel usernameLabel = new JLabel("Username or Email");
+        JLabel usernameLabel = new JLabel("Email");
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         usernameLabel.setForeground(Color.WHITE);
         usernameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));

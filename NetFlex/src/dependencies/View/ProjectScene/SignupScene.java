@@ -13,6 +13,9 @@ import java.util.*;
 
 public class SignupScene {
     private JPanel container = null;
+    private JPanel formContainer = null;
+    private JPanel leftPanel = null;
+    private JPanel rightPanel = null;
     private RoundedButton signUpButton = null;
     private RoundedButton submitButton = null;
     public SignupScene(SignupController signupController, ProjectWindow projectWindow){
@@ -22,16 +25,17 @@ public class SignupScene {
         verticalPanel.setAlignmentX( Component.CENTER_ALIGNMENT );
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
 
+
         JLabel welcomeLabel = new JLabel("Welcome on Netflex !");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 70));
         welcomeLabel.setForeground(Color.WHITE);
-        welcomeLabel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 20));
+        welcomeLabel.setBorder(BorderFactory.createEmptyBorder(80, 0, 0, 20));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel choicePanel = new JPanel(new GridLayout(1, 2));
+        JPanel choicePanel = new JPanel(new GridLayout(1, 2, 10, 0));
         choicePanel.setBackground( projectWindow.getBackgroundColor() );
-        choicePanel.setMaximumSize( new Dimension(800, 100) );
-        choicePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        choicePanel.setMaximumSize( new Dimension(700, 100) );
+        choicePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
         JLabel loginLabel = new JLabel("Already registered ?");
         loginLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -51,6 +55,12 @@ public class SignupScene {
         choicePanel.add(loginLabel);
         choicePanel.add(signUpButton);
 
+        formContainer = new JPanel();
+        formContainer.setBackground(projectWindow.getBackgroundColor() );
+        formContainer.setPreferredSize(new Dimension(875,100));
+        formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.X_AXIS));
+
+
         JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         usernameLabel.setForeground(Color.WHITE);
@@ -61,15 +71,27 @@ public class SignupScene {
         usernameIpt.setMaximumSize(new Dimension(350, 40));
         usernameIpt.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        JLabel nameLabel = new JLabel("Full name");
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        nameLabel.setForeground(Color.WHITE);
-        nameLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel firstNameLabel = new JLabel("Firstname");
+        firstNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        firstNameLabel.setForeground(Color.WHITE);
+        firstNameLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
+        firstNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        RoundedTextField nameIpt = new RoundedTextField(2, 15,15, projectWindow.getBackgroundColor(), Color.WHITE, Color.WHITE);
-        nameIpt.setMaximumSize(new Dimension(350, 40));
-        nameIpt.setFont(new Font("Arial", Font.PLAIN, 20));
+        RoundedTextField userFirstNameIpt = new RoundedTextField(2, 15,15, projectWindow.getBackgroundColor(), Color.WHITE, Color.WHITE);
+        userFirstNameIpt.setMaximumSize(new Dimension(350, 40));
+        userFirstNameIpt.setFont(new Font("Arial", Font.PLAIN, 20));
+
+
+        JLabel lastNameLabel = new JLabel("Lastname");
+        lastNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        lastNameLabel.setForeground(Color.WHITE);
+        lastNameLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
+        lastNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        RoundedTextField userLastNameIpt = new RoundedTextField(2, 15,15, projectWindow.getBackgroundColor(), Color.WHITE, Color.WHITE);
+        userLastNameIpt.setMaximumSize(new Dimension(350, 40));
+        userLastNameIpt.setFont(new Font("Arial", Font.PLAIN, 20));
+
 
         JLabel emailLabel = new JLabel("Email");
         emailLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -129,6 +151,9 @@ public class SignupScene {
         submitButton.setFont(new Font("Arial", Font.PLAIN, 20));
         submitButton.setPreferredSize(new Dimension(200, 40));
 
+        firstNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        userFirstNameIpt.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         centerPanel.setOpaque(false);
         centerPanel.add(submitButton);
@@ -136,25 +161,50 @@ public class SignupScene {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                signupController.handleSubmitButton(submitButton, usernameIpt.getText(), nameIpt.getText(), emailIpt.getText(), passwordIpt.getText(), repeatPasswordIpt.getText(), (Date) datePicker.getModel().getValue());
+                signupController.handleSubmitButton(submitButton, userFirstNameIpt.getText(), userLastNameIpt.getText(), usernameIpt.getText(), emailIpt.getText(), passwordIpt.getText(), repeatPasswordIpt.getText(), (Date) datePicker.getModel().getValue());
             }
         });
+        JPanel vpl = new JPanel();
+        vpl.setBackground( projectWindow.getBackgroundColor() );
+        vpl.setMinimumSize( new Dimension(400, 100) );
+        vpl.setLayout(new BoxLayout(vpl, BoxLayout.Y_AXIS));
+
+        JPanel rpl = new JPanel();
+        rpl.setBackground( projectWindow.getBackgroundColor() );
+        rpl.setMinimumSize( new Dimension(400, 100) );
+        rpl.setLayout(new BoxLayout(rpl, BoxLayout.Y_AXIS));
 
         verticalPanel.add(welcomeLabel);
         verticalPanel.add(choicePanel);
+
+        vpl.add(firstNameLabel);
+        vpl.add(userFirstNameIpt);
+
+        vpl.add(lastNameLabel);
+        vpl.add(userLastNameIpt);
+
+        rpl.add(emailLabel);
+        rpl.add(emailIpt);
+
+        rpl.add(dateOfBirthLabel);
+        rpl.add(datePicker);
+
+        vpl.add(passwordLabel);
+        vpl.add(passwordIpt);
+
+        rpl.add(repeatPasswordLabel);
+        rpl.add(repeatPasswordIpt);
+
+        formContainer.add(vpl);
+        formContainer.add(Box.createHorizontalStrut(75));
+        formContainer.add(rpl);
+
         verticalPanel.add(usernameLabel);
         verticalPanel.add(usernameIpt);
-        verticalPanel.add(nameLabel);
-        verticalPanel.add(nameIpt);
-        verticalPanel.add(dateOfBirthLabel);
-        verticalPanel.add(datePicker);
-        verticalPanel.add(emailLabel);
-        verticalPanel.add(emailIpt);
-        verticalPanel.add(passwordLabel);
-        verticalPanel.add(passwordIpt);
-        verticalPanel.add(repeatPasswordLabel);
-        verticalPanel.add(repeatPasswordIpt);
 
+        verticalPanel.add(Box.createVerticalStrut(20)); // Ajoute une marge de 10 pixels
+
+        verticalPanel.add(formContainer);
 
         verticalPanel.add(Box.createVerticalStrut(70)); // Ajoute une marge de 10 pixels
         verticalPanel.add(centerPanel);
