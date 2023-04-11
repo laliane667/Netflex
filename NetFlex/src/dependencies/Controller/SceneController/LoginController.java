@@ -1,6 +1,8 @@
 package dependencies.Controller.SceneController;
 
 import dependencies.Controller.*;
+import dependencies.Model.DAO.UserDAO;
+import dependencies.Model.User;
 import dependencies.View.ProjectComponent.RoundedButton;
 import dependencies.View.ProjectScene.LoginScene;
 import dependencies.View.ProjectWindow;
@@ -23,26 +25,31 @@ public class LoginController extends SceneController {
     }
     public void handleButton(RoundedButton button) {
         if(button.getName() == "logToSign"){
-
             loginScene.changeVisibility(false);
             super.getApplicationController().changeScene(SceneIdentifier.SIGNUP, "none");
         }
     }
 
-    public void handleSubmitButton(RoundedButton button, String uid, String password) {
+    public void handleSubmitButton(RoundedButton button, String email, String password) {
         if (button.getName() == "submit") {
-            if(uid.isBlank() || password.isBlank()){
+            if(email.isBlank() || password.isBlank()){
                 loginScene.changeVisibility(false);
                 super.getApplicationController().changeScene(SceneIdentifier.LOGIN, "Empty field(s)");
                 return;
             }
-            System.out.println("UID: " + uid + "\nPassword: "+ password);
+            System.out.println("UID: " + email + "\nPassword: "+ password);
             try {
-                boolean logResult = super.getApplicationController().getConnectionController().getUserDAO().isUserValid(uid,password);
+                boolean logResult = super.getApplicationController().getConnectionController().getUserDAO().isUserValid(email,password);
                 System.out.println("Connection state: ");
                 loginScene.changeVisibility(false);
                 if(logResult){
                     System.out.println("succes");
+                    int id = super.getApplicationController().getConnectionController().getUserDAO().getUserIdByEmailAndPassword(email,password);
+                    getApplicationController().setAppUser(super.getApplicationController().getConnectionController().getUserDAO().getUserById(id));
+                    getApplicationController().getApplication().InitializeWatchLater();
+                    getApplicationController().getApplication().InitializeViewingVideos();
+                    getApplicationController().getApplication().InitializeViewedVideos();
+
                     super.getApplicationController().changeScene(SceneIdentifier.MENU, "none");
                 }else{
                     System.out.println("error");
@@ -52,5 +59,9 @@ public class LoginController extends SceneController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void Close(){
+
     }
 }

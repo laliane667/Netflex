@@ -6,26 +6,32 @@ import java.sql.Date;
 
 public class User {
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String email;
     private String uid;
     private String password;
-    private String email;
     private Date dateOfBirth;
+    private boolean privilege;
 
-    public User(String uid, String name, String email, String password, Date dateOfBirth){
-        this.uid = uid;
-        this.name = name;
+    public User(String firstName, String lastName, String email, String uid, String password, Date dateOfBirth, boolean privilege){
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.uid = uid;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.privilege = privilege;
     }
+
 
     //Getters
     public int getUserId(){return  id;}
-    public String getUserUID(){return uid;}
-    public String getUserName(){return name;}
+    public String getUserFirstName(){return firstName;}
+    public String getUserLastName(){return lastName;}
     public String getUserEmail(){return email;}
+    public String getUserUID(){return uid;}
     public String getUserPassword(){return password;}
     public Date getUserDateOfBirth(){return dateOfBirth;}
-
+    public boolean getUserPrivilege(){return privilege;}
 }
