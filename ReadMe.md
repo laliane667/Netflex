@@ -7,9 +7,13 @@ Installation:
 ✅ Step 2: Open IntelliJ. Open existing project. Open Netflex. Then click on "File" > "Project Structure" > "Modules" > "+" > "JARs or directory" > 
            and add all jars there are inside src/include folder.
 
-✅ Step 3: Download the multiple movies folders.
-          https://www.mediafire.com/file/e8pepsd1yst4nf5/Movies-SEL1.zip/file
-          https://www.mediafire.com/file/z5xkfe5af1jw26b/Movies-SEL2.zip/file
+✅ Step 3: Download the multiple movies folders:
+
+          first ->  via <https://www.mediafire.com/file/e8pepsd1yst4nf5/Movies-SEL1.zip/file> 
+                    OR  via <https://drive.google.com/file/d/1uDY5lwX89nIv9oMvXe1Plwek3Y-ipdtd/view?usp=share_link>
+                    
+          second ->  via <https://www.mediafire.com/file/z5xkfe5af1jw26b/Movies-SEL2.zip/file>
+                    OR via <https://drive.google.com/file/d/1ijBNyKOEVSgddvh3H8xmgHVKeZUZ3pP8/view?usp=share_link>
         
 ✅ Step 4: Extract the previously downloaded files, then drag and drop the content inside Netflex/src/resources/Movies (IMPORTANT: the content should be
            some folders named by movie title).
